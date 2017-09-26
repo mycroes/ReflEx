@@ -26,5 +26,12 @@ namespace Mycroes.Expressions
             var lambda = Expression.Lambda<Func<T>>(expression);
             return lambda.Compile().Invoke();
         }
+
+        public static Expression<Func<TInNew, TOut>> TranslateExpression<TInOld, TInNew, TOut>(
+            Expression<Func<TInOld, TOut>> original, Expression<Func<TInNew, TInOld>> translation)
+        {
+            return Expression.Lambda<Func<TInNew, TOut>>(
+                original.Body.Replace(original.Parameters[0], translation.Body), translation.Parameters[0]);
+        }
     }
 }
