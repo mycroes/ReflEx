@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Mycroes.Expressions
 {
@@ -10,6 +11,14 @@ namespace Mycroes.Expressions
             expression = MakeAssignableExpression<T>(expression);
             var lambda = Expression.Lambda<Func<T>>(expression);
             return lambda.Compile().Invoke();
+        }
+
+        public static MethodInfo ExtractMethod<T>(Expression<Func<T>> expression)
+        {
+            var methodCall = expression.Body as MethodCallExpression ??
+                throw new ArgumentException($"Expression {expression} must be a method call.");
+
+            return methodCall.Method;
         }
 
         public static Expression MakeAssignableExpression<T>(Expression expression)
