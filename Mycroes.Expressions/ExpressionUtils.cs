@@ -18,7 +18,7 @@ namespace Mycroes.Expressions
                         $"Missing single argument constructor with parameter of type {expression.Type} on type {typeof(T)}");
                 expression = Expression.New(ctor, expression);
             }
-            else if (typeof(T) == typeof(object) && expression.Type.IsValueType)
+            else
             {
                 expression = Expression.Convert(expression, typeof(T));
             }
