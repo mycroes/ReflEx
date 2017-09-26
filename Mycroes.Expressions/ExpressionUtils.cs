@@ -7,6 +7,15 @@ namespace Mycroes.Expressions
     {
         public static T EvaluateExpression<T>(Expression expression)
         {
+            expression = MakeAssignableExpression<T>(expression);
+            var lambda = Expression.Lambda<Func<T>>(expression);
+            return lambda.Compile().Invoke();
+        }
+
+        public static Expression MakeAssignableExpression<T>(Expression expression)
+        {
+            if (typeof(T) == expression.Type) return expression;
+
             if (!typeof(T).IsAssignableFrom(expression.Type))
                 throw new ArgumentException(
                     $"Expression return type {expression.Type} is not assignable to {typeof(T)}.");
@@ -23,8 +32,7 @@ namespace Mycroes.Expressions
                 expression = Expression.Convert(expression, typeof(T));
             }
 
-            var lambda = Expression.Lambda<Func<T>>(expression);
-            return lambda.Compile().Invoke();
+            return expression;
         }
 
         public static Expression<Func<TInNew, TOut>> TranslateExpression<TInOld, TInNew, TOut>(
