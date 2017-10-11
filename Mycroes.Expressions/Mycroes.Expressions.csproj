@@ -43,6 +43,7 @@
     <Compile Include="ExpressionReplacementVisitor.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Extract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

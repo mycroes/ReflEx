@@ -13,14 +13,6 @@ namespace Mycroes.Expressions
             return lambda.Compile().Invoke();
         }
 
-        public static MethodInfo ExtractMethod<T>(Expression<Func<T>> expression)
-        {
-            var methodCall = expression.Body as MethodCallExpression ??
-                throw new ArgumentException($"Expression {expression} must be a method call.");
-
-            return methodCall.Method;
-        }
-
         public static Expression MakeAssignableExpression<T>(Expression expression)
         {
             if (typeof(T) == expression.Type) return expression;
