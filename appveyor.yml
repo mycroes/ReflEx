@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+configuration: Release
+install:
+  - choco install gitversion.portable -y
+environment:
+  nuget_api_key:
+    secure: uDOHaqQ4j1DLNN+DHYdwuX0jD9T6THHe42DETSNnyHziLMJqWLsWc4HNbU/JB4vK
+before_build:
+  cmd: gitversion /l console /output buildserver /updateassemblyinfo /b %APPVEYOR_REPO_BRANCH%
+build:
+  project: Mycroes.ReflEx.sln
