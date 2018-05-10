@@ -13,6 +13,14 @@ namespace Mycroes.Expressions
             return lambda.Compile().Invoke();
         }
 
+        public static object EvaluateExpression(Expression expression)
+        {
+            if (expression.Type != typeof(object)) expression = Expression.TypeAs(expression, typeof(object));
+
+            var lambda = Expression.Lambda<Func<object>>(expression);
+            return lambda.Compile().Invoke();
+        }
+
         public static Expression MakeAssignableExpression<T>(Expression expression)
         {
             if (typeof(T) == expression.Type) return expression;

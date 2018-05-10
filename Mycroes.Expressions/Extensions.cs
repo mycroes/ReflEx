@@ -7,6 +7,8 @@ namespace Mycroes.Expressions
     {
         public static T Evaluate<T>(this Expression expression) => ExpressionUtils.EvaluateExpression<T>(expression);
 
+        public static object Evaluate(this Expression expression) => ExpressionUtils.EvaluateExpression(expression);
+
         public static Expression Replace(this Expression expression, Expression oldValue,
             Expression newValue) => ExpressionReplacementVisitor.Replace(expression, oldValue, newValue);
 
