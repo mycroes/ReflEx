@@ -7,12 +7,45 @@ namespace Mycroes.Expressions
 {
     public static class Lambda
     {
+        /// <summary>
+        /// Return the body of the given lambda expression as the requested
+        /// expression type.
+        /// </summary>
+        /// <typeparam name="T">The expected body expression type.</typeparam>
+        /// <param name="expression">Lambda expression to extract the body from.</param>
+        /// <returns>The body of the input expression.</returns>
+        /// 
+        /// <exception cref="ArgumentException">
+        /// The body of <paramref name="expression"/> is not an instance of <typeparamref name="T"/>.
+        /// </exception>
         public static T ExtractBody<T>(this LambdaExpression expression) where T : Expression =>
             expression.Body as T ?? throw expression.BodyShouldBeOfType(nameof(expression), typeof(T));
 
+        /// <summary>
+        /// Return the body of the given lambda expression as the requested
+        /// expression type.
+        /// </summary>
+        /// <typeparam name="T">The expected body expression type.</typeparam>
+        /// <param name="expression">Lambda expression to extract the body from.</param>
+        /// <returns>The body of the input expression.</returns>
+        /// 
+        /// <exception cref="ArgumentException">
+        /// The body of <paramref name="expression"/> is not an instance of <typeparamref name="T"/>.
+        /// </exception>
         public static T ExtractBody<T>(Expression<Func<object>> expression) where T : Expression =>
             expression.ExtractBody<T>();
 
+        /// <summary>
+        /// Return the body of the given lambda expression as the requested
+        /// expression type.
+        /// </summary>
+        /// <typeparam name="T">The expected body expression type.</typeparam>
+        /// <param name="expression">Lambda expression to extract the body from.</param>
+        /// <returns>The body of the input expression.</returns>
+        /// 
+        /// <exception cref="ArgumentException">
+        /// The body of <paramref name="expression"/> is not an instance of <typeparamref name="T"/>.
+        /// </exception>
         public static T ExtractBody<T>(Expression<Action> expression) where T : Expression =>
             expression.ExtractBody<T>();
 
