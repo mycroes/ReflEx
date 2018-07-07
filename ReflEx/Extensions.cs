@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Mycroes.Expressions
+namespace ReflEx
 {
     public static class Extensions
     {

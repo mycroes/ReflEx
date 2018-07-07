@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Mycroes.Expressions
+namespace ReflEx
 {
     public class ExpressionReplacementVisitor : ExpressionVisitor
     {

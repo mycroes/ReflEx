@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+
+    <Description>Expression and reflection helpers</Description>
+    <Authors>Michael Croes</Authors>
+    <PackageProjectUrl>https://github.com/mycroes/ReflEx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mycroes/ReflEx</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>expressions reflection</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-62925-02" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Mycroes.Expressions
+namespace ReflEx
 {
     public static class Lambda
     {

@@ -2,10 +2,12 @@ image: Visual Studio 2017
 configuration: Release
 install:
   - choco install gitversion.portable -y
-environment:
-  nuget_api_key:
-    secure: uDOHaqQ4j1DLNN+DHYdwuX0jD9T6THHe42DETSNnyHziLMJqWLsWc4HNbU/JB4vK
 before_build:
-  cmd: gitversion /l console /output buildserver /updateassemblyinfo /b %APPVEYOR_REPO_BRANCH%
-build:
-  project: Mycroes.ReflEx.sln
+  - cmd: gitversion /l console /output buildserver /updateassemblyinfo /b %APPVEYOR_REPO_BRANCH%
+  - nuget restore
+build_script:
+  msbuild /p:AssemblyVersion=%GitVersion_AssemblySemVer% /p:FileVersion=%GitVersion_MajorMinorPatch% /p:InformationalVersion=%GitVersion_InformationalVersion% /p:Configuration=%CONFIGURATION% ReflEx.sln
+after_build:
+  - dotnet pack ReflEx -c %CONFIGURATION% /p:Version=%GitVersion_NuGetVersion% --no-build -o ..\artifacts
+artifacts:
+  - path: artifacts\*.*

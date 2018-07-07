@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Mycroes.Expressions
+namespace ReflEx
 {
     public static class Extract
     {
