@@ -11,10 +11,11 @@
     <RepositoryUrl>https://github.com/mycroes/ReflEx</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>expressions reflection</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
