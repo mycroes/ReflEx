@@ -1,13 +1,13 @@
-image: Visual Studio 2017
+image: Visual Studio 2019
 configuration: Release
 install:
-  - choco install gitversion.portable -y
+  - choco install gitversion.portable --version 5.3.2 -y
 before_build:
   - cmd: gitversion /l console /output buildserver /b %APPVEYOR_REPO_BRANCH%
   - nuget restore
 build_script:
   msbuild /nologo /v:m /p:AssemblyVersion=%GitVersion_AssemblySemVer% /p:FileVersion=%GitVersion_MajorMinorPatch% /p:InformationalVersion=%GitVersion_InformationalVersion% /p:Configuration=%CONFIGURATION% ReflEx.sln
 after_build:
-  - dotnet pack ReflEx -c %CONFIGURATION% /p:Version=%GitVersion_NuGetVersion% --no-build -o ..\artifacts
+  - dotnet pack ReflEx -c %CONFIGURATION% /p:Version=%GitVersion_NuGetVersion% --no-build -o artifacts
 artifacts:
   - path: artifacts\*.*
