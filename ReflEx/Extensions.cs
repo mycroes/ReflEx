@@ -11,7 +11,7 @@ namespace ReflEx
         /// <typeparam name="T">The type to evaluate to.</typeparam>
         /// <param name="expression">The expression to evaluate.</param>
         /// <returns>The evaluated expression.</returns>
-        /// 
+        ///
         /// <remarks>
         /// <see cref="ExpressionUtils.MakeAssignableExpression{T}" /> is used to match
         /// <paramref name="expression"/> to type <typeparamref name="T"/>.
@@ -51,5 +51,24 @@ namespace ReflEx
             this Expression<Func<TInOld, TOut>> original,
             Expression<Func<TInNew, TInOld>> translation) => ExpressionUtils.TranslateExpression(original,
             translation);
+
+        /// <summary>
+        /// Create a <see cref="T:System.Linq.Expressions.Expression`1"/> that applies
+        /// <paramref name="translation"/> on <paramref name="original"/>. This is similar
+        /// to how <see cref="T:Enumerable.Select"/> applies to collections, but then applied to
+        /// a single instance to allow composition of expressions.
+        /// </summary>
+        /// <typeparam name="TIn">The input type of the original expression.</typeparam>
+        /// <typeparam name="TOutOld">The output type of the original expression.</typeparam>
+        /// <typeparam name="TOutNew">The output type of the returned expression.</typeparam>
+        /// <param name="original">The expression to translate.</param>
+        /// <param name="translation">The translation to apply to the output of the original expression.</param>
+        /// <returns>
+        /// A <see cref="T:System.Linq.Expressions.Expression`1"/> that takes <typeparamref name="TIn"/>
+        /// as input and returns <typeparamref name="TOutNew"/>.
+        /// </returns>
+        public static Expression<Func<TIn, TOutNew>> Pick<TIn, TOutOld, TOutNew>(
+            this Expression<Func<TIn, TOutOld>> original,
+            Expression<Func<TOutOld, TOutNew>> translation) => ExpressionUtils.TranslateExpression(translation, original);
     }
 }
