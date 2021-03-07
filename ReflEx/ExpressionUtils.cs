@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using ReflEx.Evaluation;
 
 namespace ReflEx
 {
@@ -11,13 +12,15 @@ namespace ReflEx
         /// <typeparam name="T">The type to evaluate to.</typeparam>
         /// <param name="expression">The expression to evaluate.</param>
         /// <returns>The evaluated expression.</returns>
-        /// 
+        ///
         /// <remarks>
         /// <see cref="MakeAssignableExpression{T}" /> is used to match
         /// <paramref name="expression"/> to type <typeparamref name="T"/>.
         /// </remarks>
         public static T EvaluateExpression<T>(Expression expression)
         {
+            if (ExpressionEvaluator.TryEvaluate(expression, out var value)) return (T) value;
+
             expression = MakeAssignableExpression<T>(expression);
             var lambda = Expression.Lambda<Func<T>>(expression);
             return lambda.Compile().Invoke();
@@ -30,6 +33,8 @@ namespace ReflEx
         /// <returns>The evaluated expression.</returns>
         public static object EvaluateExpression(Expression expression)
         {
+            if (ExpressionEvaluator.TryEvaluate(expression, out var value)) return value;
+
             if (expression.Type != typeof(object)) expression = Expression.TypeAs(expression, typeof(object));
 
             var lambda = Expression.Lambda<Func<object>>(expression);
