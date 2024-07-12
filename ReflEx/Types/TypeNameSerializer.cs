@@ -30,7 +30,11 @@ public static class TypeNameSerializer
     private static void Serialize(Type type, StringBuilder sb)
     {
         var offset = sb.Length;
-        var p = type.DeclaringType;
+
+        var elementType = type;
+        while (elementType.IsArray) elementType = elementType.GetElementType()!;
+
+        var p = elementType.DeclaringType;
         while (p != null)
         {
             sb.Insert(offset, '+');
@@ -40,7 +44,7 @@ public static class TypeNameSerializer
 
         sb.Insert(offset, '.');
         sb.Insert(offset, type.Namespace);
-        sb.Append(type.Name);
+        sb.Append(elementType.Name);
 
         var args = type.GetGenericArguments();
         if (args.Length > 0)
@@ -55,6 +59,11 @@ public static class TypeNameSerializer
 
             sb.Remove(sb.Length - 1, 1);
             sb.Append(']');
+        }
+
+        if (type.IsArray)
+        {
+            sb.Append(type.Name.Substring(elementType.Name.Length));
         }
 
         if (type.Assembly == typeof(int).Assembly) return;

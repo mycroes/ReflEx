@@ -46,6 +46,34 @@ namespace ReflEx.Tests.Types
                 $"{GetType().Namespace}.{GetType().Name}+{nameof(NestedGeneric<int>)}`1+{nameof(NestedGeneric<int>.NestedNestedGeneric<string>)}`1[[System.Int32],[System.String]], {GetType().Assembly.GetName().Name}");
         }
 
+        [Fact]
+        public void Should_Serialize_Array_Of_NestedType()
+        {
+            TypeNameSerializer.Serialize(typeof(Nested[])).ShouldBe(
+                $"{GetType().Namespace}.{GetType().Name}+{nameof(Nested)}[], {GetType().Assembly.GetName().Name}");
+        }
+
+        [Fact]
+        public void Should_Serialize_Array_Of_Array_NestedType()
+        {
+            TypeNameSerializer.Serialize(typeof(Nested[][])).ShouldBe(
+                $"{GetType().Namespace}.{GetType().Name}+{nameof(Nested)}[][], {GetType().Assembly.GetName().Name}");
+        }
+
+        [Fact]
+        public void Should_Serialize_Array_Of_NestedGenericType()
+        {
+            TypeNameSerializer.Serialize(typeof(NestedGeneric<int>[])).ShouldBe(
+                $"{GetType().Namespace}.{GetType().Name}+{nameof(NestedGeneric<int>)}`1[[System.Int32]][], {GetType().Assembly.GetName().Name}");
+        }
+
+        [Fact]
+        public void Should_Serialize_Array_Of_Array_Of_NestedGenericType_Of_Array_Type()
+        {
+            TypeNameSerializer.Serialize(typeof(NestedGeneric<int[]>[][])).ShouldBe(
+                $"{GetType().Namespace}.{GetType().Name}+{nameof(NestedGeneric<int>)}`1[[System.Int32[]]][][], {GetType().Assembly.GetName().Name}");
+        }
+
         private class Nested
         {
         }
